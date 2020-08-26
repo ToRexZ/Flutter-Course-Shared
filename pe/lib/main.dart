@@ -67,6 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(id: 't8', title: 'Food', amount: 49.99, date: DateTime.now()),
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return _userTransactions
         .where(
@@ -133,9 +135,24 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Show chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  },
+                ),
+              ],
+            ),
             //the card by default assumes the size of its child. Only if its parent has a clear size specification, it assumes the parent size.
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction)
+            _showChart
+                ? Chart(_recentTransactions)
+                : TransactionList(_userTransactions, _deleteTransaction)
           ],
         ),
       ),
