@@ -47,71 +47,73 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                  labelText: 'Title',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  hintText: 'Groceries',
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 2),
-                  )),
-              controller: _titleController,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: 'Amount',
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  hintText: '29.99',
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 2),
-                  )),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              //the '_' is indicating that i dont use the value passed in by the function.
-              onSubmitted: (_) => _submitData(),
-              // onChanged: (value) => amountInput = value,
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'No Date Chosen!'
-                          : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
-                    ),
-                  ),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: presentDatePicker,
-                  )
-                ],
+    return SingleChildScrollView(
+          child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                    labelText: 'Title',
+                    labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                    hintText: 'Groceries',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 2),
+                    )),
+                controller: _titleController,
               ),
-            ),
-            RaisedButton(
-              onPressed: _submitData,
-              child: Text(
-                'Add Transaction',
-                style: Theme.of(context).textTheme.button,
+              TextField(
+                decoration: InputDecoration(
+                    labelText: 'Amount',
+                    labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                    hintText: '29.99',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 2),
+                    )),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                //the '_' is indicating that i dont use the value passed in by the function.
+                onSubmitted: (_) => _submitData(),
+                // onChanged: (value) => amountInput = value,
               ),
-              textColor: Theme.of(context).textTheme.button.color,
-              color: Theme.of(context).primaryColor,
-            )
-          ],
+              Container(
+                height: 70,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No Date Chosen!'
+                            : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
+                      ),
+                    ),
+                    FlatButton(
+                      textColor: Theme.of(context).primaryColor,
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: presentDatePicker,
+                    )
+                  ],
+                ),
+              ),
+              RaisedButton(
+                onPressed: _submitData,
+                child: Text(
+                  'Add Transaction',
+                  style: Theme.of(context).textTheme.button,
+                ),
+                textColor: Theme.of(context).textTheme.button.color,
+                color: Theme.of(context).primaryColor,
+              )
+            ],
+          ),
         ),
       ),
     );
